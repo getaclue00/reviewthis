@@ -10,6 +10,12 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @comments = Comment.find_by(post: @post)
+    data = [post: @post, post_comments: @comments].to_json
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: data }
+    end
   end
 
   # GET /posts/new
